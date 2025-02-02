@@ -5,14 +5,15 @@ const quotes = [
 ];
 
 // Function to display a random quote
-function showRandomQuote() {
+function displayRandomQuote() {
     if (quotes.length === 0) {
         console.log("No quotes available.");
         return;
     }
+    const quoteDisplay = document.getElementById('quoteDisplay')
     const randomIndex = Math.floor(Math.random() * quotes.length);
     const quote = quotes[randomIndex];
-    console.log(`"${quote.text}" - [${quote.category}]`);
+    quoteDisplay.innerHTML = `"${quote.text}" - [${quote.category}]`;
 }
 
 // Function to create and add a new quote through form submission
