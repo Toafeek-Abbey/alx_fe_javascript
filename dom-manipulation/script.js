@@ -6,7 +6,7 @@ const quotes = [
 
  function loadTasks() {
         const storedTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-        storedTasks.forEach(taskText => addTask(taskText, false)); 
+        storedTasks.forEach(taskText => createAddQuoteForm(taskText, false)); 
 }
 
 // Function to display a random quote
@@ -94,8 +94,39 @@ function exportQuotesToJSON() {
     document.body.removeChild(downloadLink);
     URL.revokeObjectURL(url);
 }
+function populateCategories() {
+    const categorySet = new Set(quotes.map(quote => quote.category)); // Extract unique categories
+    const select = document.getElementById("categoryFilter");
+
+    // Add default option
+    const defaultOption = document.createElement("option");
+    defaultOption.textContent = "All Categories";
+    defaultOption.value = "";
+    select.appendChild(defaultOption);
+
+    // Populate categories
+    categorySet.forEach(category => {
+        const option = document.createElement("option");
+        option.textContent = category;
+        option.value = category;
+        option.id = "categorySelect";
+        select.appendChild(option);
+    });
+
+    document.body.appendChild(select);
+}
+function filterQuotes() {
+    const selectedCategory = document.getElementById("categorySelect").value;
+    if (selectedCategory === "") {
+        displayQuotes(quotes); // Show all quotes if no category is selected
+    } else {
+        const filteredQuotes = quotes.filter(quote => quote.category === selectedCategory);
+        displayQuotes(filteredQuotes);
+    }
+}
 // Example usage
+loadTasks()
+displayRandomQuote()
 showRandomQuote();
 createAddQuoteForm();
-createAddQuoteForm()
-
+populateCategories()
