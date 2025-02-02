@@ -4,6 +4,11 @@ const quotes = [
     { text: "Success is not final, failure is not fatal: It is the courage to continue that counts.", category: "Perseverance" }
 ];
 
+ function loadTasks() {
+        const storedTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+        storedTasks.forEach(taskText => addTask(taskText, false)); 
+}
+
 // Function to display a random quote
 function displayRandomQuote() {
     if (quotes.length === 0) {
@@ -17,7 +22,7 @@ function displayRandomQuote() {
 }
 
 // Function to create and add a new quote through form submission
-function createAddQuoteForm() {
+function createAddQuoteForm(taskText, save = true) {
     const form = document.createElement("form");
 
     // Quote Text Input
@@ -58,10 +63,17 @@ function createAddQuoteForm() {
         }
     });
 
+    if (save) {
+            const storedTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+            toredTasks.push(taskText);
+            localStorage.setItem('tasks', JSON.stringify(storedTasks));
+     }
+
     document.body.appendChild(form);
 }
 
 // Example usage
 showRandomQuote();
 createAddQuoteForm();
+createAddQuoteForm()
 
