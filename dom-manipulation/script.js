@@ -51,10 +51,10 @@ function createAddQuoteForm() {
 
         if (newQuote.text && newQuote.category) {
             quotes.push(newQuote);
-            console.log("Quote added successfully!", newQuote);
+            alert("Quote added successfully!", newQuote);
             form.reset();
         } else {
-            console.log("Both fields are required!");
+            alert("Both fields are required!");
         }
     });
 
