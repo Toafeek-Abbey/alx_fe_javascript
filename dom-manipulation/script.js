@@ -81,9 +81,21 @@ function importFromJsonFile(event) {
     };
     fileReader.readAsText(event.target.files[0]);
   }
+function exportQuotesToJSON() {
+    const jsonData = JSON.stringify(quotes, null, 2);
+    const blob = new Blob([jsonData], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const downloadLink = document.createElement("a");
+    downloadLink.href = url;
+    downloadLink.download = "quotes.json";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+    URL.revokeObjectURL(url);
+}
 // Example usage
 showRandomQuote();
 createAddQuoteForm();
 createAddQuoteForm()
-importFromJsonFile()
 
